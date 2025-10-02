@@ -29,7 +29,7 @@ pipeline {
         }
         stage ('pushing docker image to docker hub'){
             steps {
-              withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubpass' , ussernameVariable: 'dockerhubuser')]){
+              withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubpass' , usernameVariable: 'dockerhubuser')]){
                 sh ' docker login -u $dockerhubuser -p $dockerhubpass'
                 sh 'docker tag app $dockerhubuser/app:latest'
                 sh 'docker push $dockerhubuser/app:latest'
