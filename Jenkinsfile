@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        JDK 'java11'
+        maven 'maven'
+    }
 
     stages {
         stage('Code Cloning') {
