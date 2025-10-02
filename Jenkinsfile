@@ -30,7 +30,7 @@ pipeline {
         stage ('docker image container run'){
             steps {
                 echo 'docker container is running'
-                sh 'docker run -d -p 8080:8080 --name c1 app'
+                sh 'docker run -d -p 8081:8080 --name c1 app'
             }
         }
     }
