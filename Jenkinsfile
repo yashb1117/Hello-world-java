@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        JDK 'java11'
+        jdk 'java11'
         maven 'maven'
     }
 
@@ -19,6 +19,18 @@ pipeline {
         stage ('maven integration test') {
             steps {
                 sh 'mvn verify'
+            }
+        }
+        stage ('docker image build'){
+            steps {
+                echo 'docker image is built'
+                sh 'docker build -t app .'
+            }
+        }
+        stage ('docker image container run'){
+            steps {
+                echo 'docker container is running'
+                sh 'docker run -d -p 8080:8080 --name c1 app'
             }
         }
     }
