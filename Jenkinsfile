@@ -13,11 +13,13 @@ pipeline {
         }
         stage ('maven build') {
             steps {
+                dir ('/var/lib/jenkins/workspace/Pipeline2')
                 sh 'mvn clean package'
             }
         }
         stage ('maven integration test') {
             steps {
+                dir ('/var/lib/jenkins/workspace/Pipeline2')
                 sh 'mvn verify'
             }
         }
