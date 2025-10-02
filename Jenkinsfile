@@ -35,6 +35,15 @@ pipeline {
                 sh 'docker push $dockerhubuser/app:latest'
               }
             }
+            stage ('deploy to kubernetes'){
+                steps {
+                   withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                    sh 'kubectl delete pods --all'
+                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f service.yaml'
+}
+                }
+            }
         }
     }
 }
