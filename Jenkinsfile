@@ -27,10 +27,13 @@ pipeline {
                 sh 'docker build -t app .'
             }
         }
-        stage ('docker image container run'){
+        stage ('pushing docker image to docker hub'){
             steps {
-                echo 'docker container is running'
-                sh 'docker run -d -p 8081:8080 --name c1 app'
+              withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubpass' , ussernameVariable: 'dockerhubuser')]){
+                sh ' docker login -u $dockerhubuser -p $dockerhubpass'
+                sh 'docker tag app $dockerhubuser/app:latest'
+                sh 'docker push $dockerhubuser/app:latest'
+              }
             }
         }
     }
